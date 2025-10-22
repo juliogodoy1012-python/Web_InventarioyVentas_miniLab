@@ -6,6 +6,8 @@ const router = express.Router();
 // Usamos el controller en lugar de lógica directa
 router.get('/productos', productosController.listar);
 
+
+
 // Las demás rutas si querés CRUD completo:
 router.get('/productos/crear', productosController.mostrarFormularioCrear);
 router.post('/productos/crear', productosController.crear);
