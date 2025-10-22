@@ -1,0 +1,10 @@
+<%- include('partials/header', { title: 'Inicio' }) %>
+
+<section class="card">
+  <h2>Bienvenido, <%= user?.nombre %> </h2>
+    <li>ID de usuario: <code><%= user?.id %></code></li>
+    <li>Email: <code><%= user?.email %></code></li>
+  </ul>
+</section>
+
+<%- include('partials/footer') %>
