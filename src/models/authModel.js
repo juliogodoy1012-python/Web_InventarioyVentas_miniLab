@@ -21,7 +21,7 @@ import bcrypt from "bcrypt";
         const hash = await bcrypt.hash(password, 10)
 
         const [result] = await pool.query(
-            `INSERT INTO usuarios (nombre, correo, password_hash) VALUE (?,?,?)`, [nombre, correo, hash]
+            `INSERT INTO usuarios (nombre, correo, password) VALUES (?,?,?)`, [nombre, correo, hash]
         )
 
         const user = {id: result.insertId, nombre:nombre, correo:correo}
@@ -50,7 +50,7 @@ import bcrypt from "bcrypt";
 
     try {
         const [rows] = await pool.query(
-            `SELECT id, nombre, correo, password_hash FROM usuarios WHERE correo = ?`[correo]
+            `SELECT id, nombre, correo, password FROM usuarios WHERE correo = ?`, [correo]
         )
 
         if (rows.length ===0){
@@ -59,7 +59,7 @@ import bcrypt from "bcrypt";
 
         const user = rows[0]
         
-        const iguales = await bcrypt.compare(password, user.password_hash)
+        const iguales = await bcrypt.compare(password, user.password)
 
         if (!iguales)
         {
@@ -87,7 +87,7 @@ import bcrypt from "bcrypt";
 
 export async function logout(req, res) {
 
-    res.clearCookie('auth')
+    res.clearCookie('auth');
 
     res.render("message", {title: "Saliendo del sistema", message: "Sesion cerrada correctamente"})
     

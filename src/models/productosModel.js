@@ -1,39 +1,59 @@
 import pool from "../config/db.js";
 
 const ProductosModel = {
-    listar(cb) {
-        const query = `Select id, nombre, categoria, marca, precio, stock, proveedor_email, rating, descuento 
-                        from productos
-                        order by rating`
+  async listar() {
+    const [rows] = await pool.query(`
+      SELECT id, nombre, categoria, marca, precio, stock, proveedor_email, rating, descuento 
+      FROM productos
+      ORDER BY rating
+    `);
+    return rows;
+  },
 
-        pool.query(query, (error, resultados) =>cb(error, resultados)) 
-    }
-    ,
+  async crear({ id, nombre, categoria, marca, precio, stock, proveedor_email, rating, descuento }) {
+    const query = `
+      INSERT INTO productos (id, nombre, categoria, marca, precio, stock, proveedor_email, rating, descuento)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    const [result] = await pool.query(query, [
+      id,
+      nombre,
+      categoria,
+      marca,
+      precio,
+      stock,
+      proveedor_email,
+      rating,
+      descuento,
+    ]);
+    return result;
+  },
 
-    crear({id, nombre, categoria, marca, precio, stock, proveedor_email, rating, descuento}, cb){
-        const query=`
-            INSERT INTO productos(id, nombre, categoria, marca, precio, stock, proveedor_email, rating, descuento)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  async actualizar({ id, nombre, categoria, marca, precio, stock, proveedor_email, rating, descuento }) {
+    const query = `
+      UPDATE productos 
+      SET nombre=?, categoria=?, marca=?, precio=?, stock=?, proveedor_email=?, rating=?, descuento=?
+      WHERE id=?
+    `;
+    const [result] = await pool.query(query, [
+      nombre,
+      categoria,
+      marca,
+      precio,
+      stock,
+      proveedor_email,
+      rating,
+      descuento,
+      id,
+    ]);
+    return result;
+  },
 
-        const parametros= [id, nombre, categoria, marca, precio, stock, proveedor_email, rating, descuento]
-        pool.query(query, parametros, (error, resultados)=>cb(error, resultados))
-    }
-    ,
-
-    actualizar({id, nombre, categoria, marca, precio, stock, proveedor_email, rating, descuento}, cb) {   
-        const query = `UPDATE productos 
-                       SET nombre=?, categoria=?, marca=?, precio=?, stock=?, proveedor_email=?, rating=?, descuento=?
-                       WHERE id=?`
-        const parametros = [nombre, categoria, marca, precio, stock, proveedor_email, rating, descuento, id]
-        pool.query(query, parametros, (error, resultados) => cb(error, resultados))
-    }
-    ,
-
-    eliminar(id, cb) {
-        const query = `DELETE FROM productos 
-                        WHERE id=?`
-        pool.query(query, [id], (error, resultado) => cb(error, resultado))
-    }
-}
+  async eliminar(id) {
+    const query = `DELETE FROM productos WHERE id=?`;
+    const [result] = await pool.query(query, [id]);
+    return result;
+  },
+};
 
 export default ProductosModel;

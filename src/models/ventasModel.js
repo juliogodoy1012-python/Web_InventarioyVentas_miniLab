@@ -1,44 +1,61 @@
-import pool from "../config/db.js"
+import pool from "../config/db.js";
 
 const VentasModel = {
-    //Mostrar historial de ventas.
+  // 📋 Listar todas las ventas
+  async listar() {
+    const [rows] = await pool.query(`
+      SELECT v.id, v.producto_id, p.nombre AS producto, v.cantidad, v.fecha, v.vendedor_id
+      FROM ventas v
+      JOIN productos p ON v.producto_id = p.id
+      ORDER BY v.fecha DESC
+    `);
+    return rows;
+  },
 
-    listar(cb) {
-        const query = `Select id, producto_id, cantidad, fecha, vendedor_id
-                       FROM ventas
-                       Order by desc`
-        pool.query(query,(error, resultados) => cb(error,resultados))
-    },
-    //Registrar una venta solo si hay stock suficiente. 
+  // 🛒 Crear una nueva venta (solo si hay stock suficiente)
+  async crear({ producto_id, cantidad, fecha, vendedor_id }) {
+    const connection = await pool.getConnection();
+    try {
+      await connection.beginTransaction();
 
-    crear({producto_id, cantidad, fecha, vendedor_id}, cb) {
-      const verificarS = `Select stock from productos where id = ? `
+      // 1️⃣ Verificar stock
+      const [productoRows] = await connection.query(
+        "SELECT stock, nombre FROM productos WHERE id = ?",
+        [producto_id]
+      );
 
-      pool.query(verificarS, [producto_id], (error, resultados)=> {
-        if (error) {
-            cb(error);
-        } else if (resultados.length === 0) {
-            cb(new Error("Producto no encontrado"));
-        } else if (stockDisponible < cantidad) {
-            cb(new Error("Stock insuficiente"));
-        }
+      if (productoRows.length === 0) {
+        throw new Error("Producto no encontrado");
+      }
 
-        const registrarVenta = `insert into ventas(producto_id, cantidad, fecha, vendedor_id)
-                                Values(?,?,?,?)`
-        
-        const parametrosVenta = [producto_id, cantidad, fecha, vendedor_id];
-        pool.query(registrarVenta, parametrosVenta, (error, resultadosVenta) => {
-            if (error) return cb(error)
+      const stockDisponible = productoRows[0].stock;
+      const nombreProducto = productoRows[0].nombre;
 
-            const actualizarStock = ` UPDATE productos
-                                      SET stock = stock=?
-                                      WHERE id = ?`
+      if (stockDisponible < cantidad) {
+        throw new Error(`Stock insuficiente para ${nombreProducto}`);
+      }
 
-            pool.query(actualizarStock, [cantidad, producto_id], (error, resultadoStokc))
-        })
-      })
+      // 2️⃣ Registrar venta
+      const [ventaResult] = await connection.query(
+        "INSERT INTO ventas (producto_id, cantidad, fecha, vendedor_id) VALUES (?, ?, ?, ?)",
+        [producto_id, cantidad, fecha, vendedor_id]
+      );
+
+      // 3️⃣ Actualizar stock
+      await connection.query(
+        "UPDATE productos SET stock = stock - ? WHERE id = ?",
+        [cantidad, producto_id]
+      );
+
+      await connection.commit();
+      return ventaResult;
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release();
     }
-
-}
+  },
+};
 
 export default VentasModel;

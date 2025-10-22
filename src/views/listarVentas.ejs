@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Historial de Ventas</title>
+  <link rel="stylesheet" href="/styles.css"> <!-- opcional -->
+</head>
+<body>
+  <header>
+    <h1>📊 Historial de Ventas</h1>
+    <nav>
+      <a href="/">🏠 Inicio</a> |
+      <a href="/productos">📦 Productos</a> |
+      <a href="/ventas/crear">➕ Registrar nueva venta</a> |
+      <a href="/logout"> Cerrar sesión</a>
+    </nav>
+  </header>
+
+  <main>
+    <% if (ventas && ventas.length > 0) { %>
+      <table border="1" cellspacing="0" cellpadding="6">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Fecha</th>
+            <th>Vendedor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% ventas.forEach(v => { %>
+            <tr>
+              <td><%= v.id %></td>
+              <td><%= v.producto %></td>
+              <td><%= v.cantidad %></td>
+              <td><%= new Date(v.fecha).toLocaleDateString() %></td>
+              <td><%= v.vendedor_id %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p>No hay ventas registradas aún.</p>
+    <% } %>
+  </main>
+
+  <footer>
+    <p>Usuario conectado: <strong><%= user?.nombre %></strong> (<%= user?.correo %>)</p>
+  </footer>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f6f6f6;
+      padding: 2rem;
+      margin: 0;
+    }
+    header {
+      margin-bottom: 1.5rem;
+    }
+    header h1 {
+      margin-bottom: 0.5rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: #007bff;
+      margin-right: 1rem;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    th {
+      background: #007bff;
+      color: white;
+      text-align: left;
+    }
+    td, th {
+      padding: 8px 12px;
+    }
+    tr:nth-child(even) {
+      background: #f0f8ff;
+    }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #333;
+    }
+  </style>
+</body>
+</html>

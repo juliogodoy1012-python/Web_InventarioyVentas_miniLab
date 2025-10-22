@@ -1,13 +1,16 @@
-<%- include('partials/header', { title: 'Registro' }) %>
+<h1>App Inventarios y Ventas</h1>
+<nav>
+<a href="/">Inicio</a>
+</nav>
 
 <section class="card">
   <h2>Crear cuenta</h2>
   <form method="post" action="/register">
     <label>Nombre
-      <input type="text" name="name" required>
+      <input type="text" name="nombre" required>
     </label>
     <label>Email
-      <input type="email" name="email" required>
+      <input type="email" name="correo" required>
     </label>
     <label>Contraseña
       <input type="password" name="password" required minlength="6">

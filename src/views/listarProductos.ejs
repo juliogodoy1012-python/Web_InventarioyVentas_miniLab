@@ -4,38 +4,36 @@
     <title>Listado de productos</title>
 </head>
 <body>
-    <h1>Productos registrados</h1>
+    <h1>Listado de productos</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th><th>Nombre</th><th>Categoria</th>
-                <th>Marca</th><th>Precio</th><th>Stock</th>
-                <th>Proveedor</th><th>Rating</th><th>Descuento</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% if (productos && productos.length > 0) { %>
-                <% productos.forEach(producto => { %>
-                    <tr>
-                        <td><%= producto.id %></td>
-                        <td><%= producto.nombre %></td>
-                        <td><%= producto.categoria %></td>
-                        <td><%= producto.marca %></td>
-                        <td><%= producto.precio %></td>
-                        <td><%= producto.stock %></td>
-                        <td><%= producto.proveedor_email %></td>
-                        <td><%= producto.rating %></td>
-                        <td><%= producto.descuento %></td>
-                    </tr>
-                <% }) %>
-            <% } else { %>
-                <tr>
-                    <td colspan="9">No hay productos registrados</td>
-                </tr>
-            <% } %>
-        </tbody>
-    </table>
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Categoría</th>
+    <th>Marca</th>
+    <th>Precio</th>
+    <th>Stock</th>
+    <th>Proveedor</th>
+    <th>Rating</th>
+    <th>Descuento</th>
+  </tr>
+
+  <% productos.forEach(p => { %>
+    <tr>
+      <td><%= p.id %></td>
+      <td><%= p.nombre %></td>
+      <td><%= p.categoria %></td>
+      <td><%= p.marca %></td>
+      <td>$<%= p.precio %></td>
+      <td><%= p.stock %></td>
+      <td><%= p.proveedor_email %></td>
+      <td><%= p.rating %></td>
+      <td><%= p.descuento %></td>
+    </tr>
+  <% }) %>
+</table>
+
 
     <a href="/">Volver al inicio</a>
 </body>

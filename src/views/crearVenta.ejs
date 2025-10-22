@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar venta</title>
+  <link rel="stylesheet" href="/styles.css"> <!-- opcional -->
+</head>
+<body>
+  <header>
+    <h1>Registrar nueva venta</h1>
+    <a href="/ventas">⬅ Volver al listado</a> |
+    <a href="/">🏠 Inicio</a>
+  </header>
+
+  <main>
+    <form action="/ventas/crear" method="POST" class="form-card">
+      <div>
+        <label for="producto_id">ID del producto:</label>
+        <input type="number" name="producto_id" id="producto_id" required>
+      </div>
+
+      <div>
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" name="cantidad" id="cantidad" min="1" required>
+      </div>
+
+      <div>
+        <label for="fecha">Fecha:</label>
+        <input type="date" name="fecha" id="fecha" required>
+      </div>
+
+      <div>
+    <label for="vendedor_id">ID del vendedor:</label>
+    <input type="number" name="vendedor_id" id="vendedor_id" value="<%= user?.id %>" readonly>
+    </div>
+
+
+      <button type="submit">Registrar venta</button>
+    </form>
+  </main>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f6f6f6;
+    }
+    header {
+      margin-bottom: 2rem;
+    }
+    .form-card {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      max-width: 400px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .form-card div {
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: .3rem;
+    }
+    input {
+      width: 100%;
+      padding: .5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: .6rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</body>
+</html>

@@ -1,20 +1,15 @@
 import express from 'express';
-import productosController from '../controllers/productosController.js'; // Asegurate de tenerlo
+import productosController from '../controllers/productosController.js';
+import { requireAuth } from '../middlewares/auth.js';
 
 const router = express.Router();
 
-// Usamos el controller en lugar de lógica directa
-router.get('/productos', productosController.listar);
-
-
-
-// Las demás rutas si querés CRUD completo:
-router.get('/productos/crear', productosController.mostrarFormularioCrear);
-router.post('/productos/crear', productosController.crear);
-
-router.get('/productos/editar/:id', productosController.mostrarFormularioEditar);
-router.post('/productos/editar', productosController.actualizar);
-
-router.post('/productos/eliminar/:id', productosController.eliminar);
+// Sin '/productos' al inicio porque ya lo pones en app.js
+router.get('/', requireAuth, productosController.listar);
+router.get('/crear', requireAuth, productosController.mostrarFormularioCrear);
+router.post('/crear', requireAuth, productosController.crear);
+router.get('/editar/:id', requireAuth, productosController.mostrarFormularioEditar);
+router.post('/editar', requireAuth, productosController.actualizar);
+router.post('/eliminar/:id', requireAuth, productosController.eliminar);
 
 export default router;
