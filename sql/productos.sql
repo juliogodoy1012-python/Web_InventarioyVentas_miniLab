@@ -1,3 +1,6 @@
+CREATE DATABASE proyecto_cookies; 
+USE proyecto_cookies;
+
 CREATE TABLE `productos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(60) NOT NULL,
