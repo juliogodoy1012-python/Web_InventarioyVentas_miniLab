@@ -1,0 +1,19 @@
+<%- include('partials/header', { title: 'Registro' }) %>
+
+<section class="card">
+  <h2>Crear cuenta</h2>
+  <form method="post" action="/register">
+    <label>Nombre
+      <input type="text" name="name" required>
+    </label>
+    <label>Email
+      <input type="email" name="email" required>
+    </label>
+    <label>Contraseña
+      <input type="password" name="password" required minlength="6">
+    </label>
+    <button type="submit">Registrar</button>
+  </form>
+</section>
+
+

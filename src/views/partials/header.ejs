@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title || "App" %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>App Demo (Cookies + Auth)</h1>
+    <nav>
+      <a href="/">Inicio</a>
+
+      <% if (typeof user === 'undefined' || !user) { %>
+        <!-- Usuario no autenticado -->
+        <a href="/login">Login</a>
+        <a href="/register">Registro</a>
+      <% } else { %>
+        <!-- Usuario autenticado -->
+        <form method="post" action="/logout" style="display:inline;">
+        </form>
+      <% } %>
+    </nav>
+  </header>
+
+  <main class="container">
