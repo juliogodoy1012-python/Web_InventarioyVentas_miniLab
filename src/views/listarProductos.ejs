@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
+  
 <head>
     <title>Listado de productos</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+<%- include('partials/header', { title: 'Inicio' }) %>
+
+  <section class="inventarioVista">
     <h1>Listado de productos</h1>
 
 <table border="1">
@@ -33,8 +38,7 @@
     </tr>
   <% }) %>
 </table>
-
-
-    <a href="/">Volver al inicio</a>
+</section>
+<%- include('partials/footer') %>
 </body>
 </html>

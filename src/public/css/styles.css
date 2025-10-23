@@ -1,0 +1,322 @@
+/* Body mantiene el contenido centrado pero no afecta el nav */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #010c1f 0%, #32a770 50%, #a2db9f 100%);
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  /* Cambiar para que no afecte el nav */
+}
+
+/* Navbar ocupa todo el ancho */
+nav {
+  width: 100%;
+  background: rgba(64, 170, 64, 0.85);
+  padding: 0.75rem 0; /* menos padding horizontal */
+  display: flex;
+  justify-content: center; /* centra los links */
+  gap: 2rem;
+  box-shadow: 0 3px 10px rgba(90, 74, 138, 0.3);
+  border-radius: 0 0 10px 10px; /* redondear solo abajo */
+  margin-bottom: 2rem;
+}
+
+/* Links estilo botón */
+nav a {
+  color: #f0e9ff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #aad875;
+  color: #4b3f72;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.bienvenida {
+  display: flex;
+  font-size: 1.3rem;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(52, 83, 58, 0.993);
+  padding: 2rem 3rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  color: #e0e0f0;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  overflow-wrap: break-word;   /* para compatibilidad */
+  text-align: center;           /* centrar texto */
+}
+
+
+
+
+
+/* footer */
+.site-footer {
+  text-align: center;      /* Centra el texto y los elementos inline */
+  justify-content: center; /* Centra horizontalmente el contenido */
+  margin-top: 3rem;
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
+  gap: 0.5rem;             /* espacio entre elementos si los hay */
+}
+
+.site-footer a {
+  display: inline-block;
+  background-color: rgba(36, 168, 36, 0.979); /* color morado */
+  color: #fafafa;
+  padding: 0.5rem 1.2rem;
+  border-radius: 25px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 3px 8px rgba(62, 243, 7, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.site-footer a:hover {
+  background-color: #74ca4b; /* un tono más claro */
+  box-shadow: 0 6px 14px rgba(232, 248, 82, 0.7);
+  text-decoration: none;
+}
+
+/* tabla de base de datos */
+.inventarioVista {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 10vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  padding: 25px;
+}
+
+.inventarioVista h1 {
+  color: #fff;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.inventarioVista table {
+  width: 80%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.inventarioVista th, 
+.inventarioVista td {
+  padding: 14px 18px;
+  text-align: left;
+}
+
+.inventarioVista th {
+  background-color: #009688;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.inventarioVista tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.inventarioVista tr:hover {
+  background-color: #e0f2f1;
+  transition: background-color 0.3s ease;
+}
+
+.inventarioVista a {
+  color: #004d40;
+  text-decoration: none;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.inventarioVista a:hover {
+  text-decoration: underline;
+}
+
+
+
+.logearse {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.logearse h1 {
+  color: #fff;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+
+.logearse h2 {
+  color: #f5f5f5;
+  margin-bottom: 25px;
+}
+
+.logearse form {
+  background: #ffffff;
+  padding: 50px 100px;
+  border-radius: 22px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  min-width: 320px;
+}
+
+.logearse label {
+  align-self: flex-start;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: -8px;
+}
+
+.logearse input[type="email"],
+.logearse input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.logearse input[type="email"]:focus,
+.logearse input[type="password"]:focus {
+  border-color: #26a69a;
+  box-shadow: 0 0 5px rgba(38, 166, 154, 0.5);
+}
+
+.logearse button[type="submit"] {
+  background: #26a69a;
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+  padding: 10px 55px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.logearse button[type="submit"]:hover {
+  background: #00965c;
+}
+
+.logearse p {
+  margin-top: 15px;
+  color: #fcf9f9;
+}
+
+.logearse a {
+  color: hsl(12, 88%, 49%);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.logearse a:hover {
+  text-decoration: underline;
+  color: #ffffff;
+}
+
+/* 
+Registro */
+
+.Registro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.Registro h2 {
+  color: #fff;
+  margin-bottom: 25px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* ====== FORMULARIO ====== */
+.Registro form {
+  background: #fff;
+  padding: 35px 45px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 350px;
+}
+
+.Registro label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: #444;
+}
+
+.Registro input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  margin-top: 5px;
+  transition: all 0.3s ease;
+}
+
+.Registro input:focus {
+  border-color: #26a69a;
+  box-shadow: 0 0 6px rgba(38, 166, 154, 0.5);
+  outline: none;
+}
+
+.Registro button {
+  background-color: #26a69a;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.Registro button:hover {
+  background-color: #00963e;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 480px) {
+  nav {
+    width: 95%;
+  }
+
+  .Registro form {
+    width: 90%;
+    padding: 25px;
+  }
+}

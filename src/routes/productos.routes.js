@@ -4,7 +4,6 @@ import { requireAuth } from '../middlewares/auth.js';
 
 const router = express.Router();
 
-// Sin '/productos' al inicio porque ya lo pones en app.js
 router.get('/', requireAuth, productosController.listar);
 router.get('/crear', requireAuth, productosController.mostrarFormularioCrear);
 router.post('/crear', requireAuth, productosController.crear);

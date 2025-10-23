@@ -5,7 +5,6 @@ export function mostrarFormularioVenta(req, res) {
 }
 
 
-// 📋 Listar ventas
 export async function listarVentas(req, res) {
   try {
     const ventas = await VentasModel.listar();
@@ -19,7 +18,7 @@ export async function listarVentas(req, res) {
   }
 }
 
-// 🛒 Crear venta
+
 export async function crearVenta(req, res) {
   const { producto_id, cantidad, fecha, vendedor_id } = req.body;
 

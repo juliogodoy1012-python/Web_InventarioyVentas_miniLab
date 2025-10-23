@@ -3,13 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <title>Registrar venta</title>
-  <link rel="stylesheet" href="/styles.css"> <!-- opcional -->
+  <link rel="stylesheet" href="/css/styles.css"> 
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0b3d2e, #4ecb7a);
+      color: white;
+    }
+
+    header {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-card {
+      background: #1d690a;
+      padding: 5rem;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-card div {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: .3rem;
+    }
+
+    input {
+      width: 100%;
+      padding: .5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background: #1f7732;
+      color: white;
+      border: none;
+      padding: .6rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1.4rem;
+    }
+
+    button:hover {
+      background: #3ca146;
+    }
+
+    a {
+      color: #9de9b1;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
+
 <body>
   <header>
     <h1>Registrar nueva venta</h1>
     <a href="/ventas">⬅ Volver al listado</a> |
-    <a href="/">🏠 Inicio</a>
+    <a href="/">Inicio</a>
   </header>
 
   <main>
@@ -30,56 +104,12 @@
       </div>
 
       <div>
-    <label for="vendedor_id">ID del vendedor:</label>
-    <input type="number" name="vendedor_id" id="vendedor_id" value="<%= user?.id %>" readonly>
-    </div>
-
-
+        <label for="vendedor_id">ID del vendedor:</label>
+        <input type="number" name="vendedor_id" id="vendedor_id" value="<%= user?.id %>" readonly>
+      </div>
+      <br>
       <button type="submit">Registrar venta</button>
     </form>
   </main>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 2rem;
-      background-color: #f6f6f6;
-    }
-    header {
-      margin-bottom: 2rem;
-    }
-    .form-card {
-      background: #fff;
-      padding: 1.5rem;
-      border-radius: 8px;
-      max-width: 400px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .form-card div {
-      margin-bottom: 1rem;
-    }
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: .3rem;
-    }
-    input {
-      width: 100%;
-      padding: .5rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button {
-      background: #007bff;
-      color: white;
-      border: none;
-      padding: .6rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #0056b3;
-    }
-  </style>
 </body>
 </html>
