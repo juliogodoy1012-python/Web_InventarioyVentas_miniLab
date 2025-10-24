@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Producto</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<%- include('partials/header', { title: 'Editar Producto' }) %>
+
+<section class="editarProducto">
+  <% if (user && Number(user.admin) === null) { %>
+<div class="mensaje-error">
+      <h2>Acceso denegado</h2>
+      <p>No tienes permisos para editar productos.</p>
+      <a href="/productos" class="btn-volver">Volver al listado</a>
+    </div>
+    
+  <% } else { console.log(user && Number(user.admin))%>
+
+    
+    <h1>Editar producto</h1>
+
+    <form method="post" action="/productos/editar">
+      <input type="hidden" name="id" value="<%= producto.id %>">
+
+      <label>Nombre:
+        <input type="text" name="nombre" value="<%= producto.nombre %>" required>
+      </label>
+      <label>Categoría:
+        <input type="text" name="categoria" value="<%= producto.categoria %>" required>
+      </label>
+      <label>Marca:
+        <input type="text" name="marca" value="<%= producto.marca %>" required>
+      </label>
+      <label>Precio:
+        <input type="number" name="precio" step="0.01" value="<%= producto.precio %>" required>
+      </label>
+      <label>Stock:
+        <input type="number" name="stock" value="<%= producto.stock %>" required>
+      </label>
+      <label>Email del proveedor:
+        <input type="email" name="proveedor_email" value="<%= producto.proveedor_email %>" required>
+      </label>
+      <label>Rating:
+        <input type="number" name="rating" min="0" max="5" step="0.1" value="<%= producto.rating %>">
+      </label>
+      <label>Descuento (%):
+        <input type="number" name="descuento" min="0" max="100" value="<%= producto.descuento %>">
+      </label>
+
+      <button type="submit">Actualizar producto</button>
+      <a href="/productos" class="btn-cancelar">Cancelar</a>
+    </form>
+    
+  <% } %>
+</section>
+
+<%- include('partials/footer') %>
+</body>
+</html>

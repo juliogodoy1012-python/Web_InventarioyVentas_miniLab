@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Crear Producto</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<%- include('partials/header', { title: 'Crear Producto' }) %>
+
+<section class="crearProducto">
+ <% if (user && Number(user.admin) === 1) { %>
+     <div class="mensaje-error">
+      <h2>Acceso denegado</h2>
+      <p>No tienes permisos para crear productos.</p>
+      <a href="/productos" class="btn-volver">Volver al listado</a>
+    </div>
+  <% } else { %>
+
+    <h1>Registrar nuevo producto</h1>
+
+    <form method="post" action="/productos/crear">
+      <label>Nombre:
+        <input type="text" name="nombre" required>
+      </label>
+      <label>Categoría:
+        <input type="text" name="categoria" required>
+      </label>
+      <label>Marca:
+        <input type="text" name="marca" required>
+      </label>
+      <label>Precio:
+        <input type="number" name="precio" step="0.01" required>
+      </label>
+      <label>Stock:
+        <input type="number" name="stock" required>
+      </label>
+      <label>Email del proveedor:
+        <input type="email" name="proveedor_email" required>
+      </label>
+      <label>Rating:
+        <input type="number" name="rating" min="0" max="5" step="0.1">
+      </label>
+      <label>Descuento (%):
+        <input type="number" name="descuento" min="0" max="100">
+      </label>
+
+      <button type="submit">Guardar producto</button>
+      <a href="/productos" class="btn-cancelar">Cancelar</a>
+    </form>
+   
+  <% } %>
+</section>
+
+<%- include('partials/footer') %>
+</body>
+</html>

@@ -320,3 +320,25 @@ Registro */
     padding: 25px;
   }
 }
+
+
+.mensaje-error {
+  border: 1px solid #d9534f;
+  background: #f2dede;
+  color: #a94442;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  margin: 30px auto;
+  text-align: center;
+}
+
+.btn-volver, .btn-cancelar {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #ccc;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333;
+}

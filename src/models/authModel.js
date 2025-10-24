@@ -2,10 +2,10 @@ import pool from "../config/db.js";
 import bcrypt from "bcrypt";
 
  export async function registro(req, res){
-    const {nombre, correo, password} = req.body
+    const { nombre, correo, password, admin = 0 } = req.body;
 
     if(!nombre || !correo || !password) {
-        return res.status(400).render("message", {title: "Registro", message: "Todos los campos son obligatorios"})
+        return res.status(400).render("message", {title: "Registro", message: "Todos los campos son obligatorios", user: req.user})
     }
 
     try{
@@ -15,14 +15,15 @@ import bcrypt from "bcrypt";
 
         if (row.length > 0)
         {
-            return res.status(400).render("message", {title: "Registro", message: "Este email ya esta registrado"})
+            return res.status(400).render("message", {title: "Registro", message: "Este email ya esta registrado", user: req.user})
         }
 
         const hash = await bcrypt.hash(password, 10)
 
         const [result] = await pool.query(
-            `INSERT INTO usuarios (nombre, correo, password) VALUES (?,?,?)`, [nombre, correo, hash]
-        )
+        `INSERT INTO usuarios (nombre, correo, password, admin) VALUES (?,?,?,?)`,
+        [nombre, correo, hash, Number(admin)]
+        );
 
         const user = {id: result.insertId, nombre:nombre, correo:correo}
 
@@ -37,7 +38,7 @@ import bcrypt from "bcrypt";
     }
     catch (error){
         console.log(error)
-        res.status(500).render("message", {title: "Error", message: "No se pudo crear la cuenta"})
+        res.status(500).render("message", {title: "Error", message: "No se pudo crear la cuenta",  user: req.user})
     }
  }
 
@@ -45,16 +46,16 @@ import bcrypt from "bcrypt";
     const {correo, password} = req.body
 
     if (!correo || !password) {
-        return res.status(400).render("message", {title: "Iniciar sesion", message: "Todos los campos son obligatorios"})
+        return res.status(400).render("message", {title: "Iniciar sesion", message: "Todos los campos son obligatorios", user: req.user})
     }
 
     try {
         const [rows] = await pool.query(
-            `SELECT id, nombre, correo, password FROM usuarios WHERE correo = ?`, [correo]
+            `SELECT id, nombre, correo, password, admin FROM usuarios WHERE correo = ?`, [correo]
         )
 
         if (rows.length ===0){
-            return res.status(401).render("message", {title: "Iniciar sesion", message: "Credenciales invalidas"})
+            return res.status(401).render("message", {title: "Iniciar sesion", message: "Credenciales invalidas", user: req.user})
         }
 
         const user = rows[0]
@@ -63,10 +64,10 @@ import bcrypt from "bcrypt";
 
         if (!iguales)
         {
-            return res.status(401).render("message", {title: "Iniciar sesion", message: "Credenciales invalidas"})
+            return res.status(401).render("message", {title: "Iniciar sesion", message: "Credenciales invalidas", user: req.user})
         }
 
-        const data = {id: user.id, nombre: user.nombre, correo: user.correo}
+        const data = {id: user.id, nombre: user.nombre, correo: user.correo, admin: Number(user.admin)}
 
         res.cookie('auth', JSON.stringify(data), {
             httpOnly: true,
@@ -80,7 +81,7 @@ import bcrypt from "bcrypt";
     catch(error)
     {
         console.log(error)
-        res.status(500).render("message", {title: "Error", message: "No se pudo iniciar sesion"})
+        res.status(500).render("message", {title: "Error", message: "No se pudo iniciar sesion", user: req.user})
     }
 }
 
@@ -89,7 +90,7 @@ export async function logout(req, res) {
 
     res.clearCookie('auth');
 
-    res.render("message", {title: "Saliendo del sistema", message: "Sesion cerrada correctamente"})
+    res.render("message", {title: "Saliendo del sistema", message: "Sesion cerrada correctamente", user: req.user})
     
 
  }

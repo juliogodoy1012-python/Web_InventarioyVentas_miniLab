@@ -9,19 +9,25 @@
 <body>
   <header class="site-header">
     <h1>App Inventarios y Ventas</h1>
-    <nav>
+
+    <nav class="navbar">
       <a href="/">Inicio</a>
       <a href="/productos">Ver Productos</a>
-      <a href="/ventas">Seccion de Vendedor</a>
+      <a href="/ventas">Sección de Vendedor</a>
 
-      <% if (typeof user === 'undefined' || !user) { %>
+      <% if (user && user.admin) { %>
+        <!-- Opciones exclusivas para administradores -->
+        <a href="/productos/crear">Crear Producto</a>
+      <% } %>
+
+      <% if (!user) { %>
         <!-- Usuario no autenticado -->
         <a href="/login">Login</a>
         <a href="/register">Registro</a>
       <% } else { %>
         <!-- Usuario autenticado -->
-        <form method="post" action="/logout" style="display:inline;">
-        </form>
+
+        <a href="/logout" class="logout-link">Cerrar sesión</a>
       <% } %>
     </nav>
   </header>

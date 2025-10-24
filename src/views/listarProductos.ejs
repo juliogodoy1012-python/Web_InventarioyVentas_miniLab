@@ -1,44 +1,48 @@
-<!DOCTYPE html>
-<html lang="es">
-  
-<head>
-    <title>Listado de productos</title>
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-<%- include('partials/header', { title: 'Inicio' }) %>
+<%- include('partials/header', { title: 'Listado de productos' }) %>
 
-  <section class="inventarioVista">
-    <h1>Listado de productos</h1>
+<section class="inventarioVista">
+  <h1>Listado de productos</h1>
 
-<table border="1">
-  <tr>
-    <th>ID</th>
-    <th>Nombre</th>
-    <th>Categoría</th>
-    <th>Marca</th>
-    <th>Precio</th>
-    <th>Stock</th>
-    <th>Proveedor</th>
-    <th>Rating</th>
-    <th>Descuento</th>
-  </tr>
+  <% if (user && Number(user.admin) === 1) { %>
+    <a href="/productos/crear" class="btn-crear">Crear Producto</a>
+  <% } %>
 
-  <% productos.forEach(p => { %>
+  <table border="1">
     <tr>
-      <td><%= p.id %></td>
-      <td><%= p.nombre %></td>
-      <td><%= p.categoria %></td>
-      <td><%= p.marca %></td>
-      <td>$<%= p.precio %></td>
-      <td><%= p.stock %></td>
-      <td><%= p.proveedor_email %></td>
-      <td><%= p.rating %></td>
-      <td><%= p.descuento %></td>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Categoría</th>
+      <th>Marca</th>
+      <th>Precio</th>
+      <th>Stock</th>
+      <th>Proveedor</th>
+      <th>Rating</th>
+      <th>Descuento</th>
+      <% if (user && Number(user.admin) === 1) { %><th>Acciones</th><% } %>
     </tr>
-  <% }) %>
-</table>
+
+    <% productos.forEach(p => { %>
+      <tr>
+        <td><%= p.id %></td>
+        <td><%= p.nombre %></td>
+        <td><%= p.categoria %></td>
+        <td><%= p.marca %></td>
+        <td>$<%= p.precio %></td>
+        <td><%= p.stock %></td>
+        <td><%= p.proveedor_email %></td>
+        <td><%= p.rating %></td>
+        <td><%= p.descuento %></td>
+        <% if (user && Number(user.admin) === 1) { %>
+          <td>
+            <a href="/productos/editar/<%= p.id %>">Editar</a>
+            <form method="post" action="/productos/eliminar/<%= p.id %>" style="display:inline;">
+              <button type="submit">Eliminar</button>
+            </form>
+          </td>
+        <% } %>
+      </tr>
+    <% }) %>
+  </table>
 </section>
+
 <%- include('partials/footer') %>
-</body>
-</html>
